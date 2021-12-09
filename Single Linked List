@@ -212,8 +212,6 @@ node* reverse(node *first)
 void main()
 {
     int ch,x,pos,n,ele,d;
-    printf("enter the element to be inserted");
-    scanf("%d",&x);
     node *head=NULL;
     head=create(head);
     display(head);
@@ -235,11 +233,17 @@ void main()
                     scanf("%d",&ele);
                     search(head,ele);
                     break;
-            case 5: head=insert_at_begin(head,x);
+            case 5: printf("enter the element to be inserted");
+                    scanf("%d",&x);
+                    head=insert_at_begin(head,x);
                     break;
-            case 6: head=insert_at_end(head,x);
+            case 6: printf("enter the element to be inserted");
+                    scanf("%d",&x);
+                    head=insert_at_end(head,x);
                     break;
-            case 7: printf("enter the position where to be inserted");
+            case 7: printf("enter the element to be inserted");
+                    scanf("%d",&x);
+                    printf("enter the position where to be inserted");
                     scanf("%d",&pos);
                     head=insert_at_pos(head,x,pos);
                     break;
