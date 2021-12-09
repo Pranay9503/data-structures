@@ -1,0 +1,103 @@
+#define MAX 50
+#include<stdio.h>
+#include<stdlib.h>
+struct polynomial
+{                  
+    int highpower;
+    int coeff[MAX];
+};              
+typedef struct polynomial poly;  
+poly* create()
+{              
+    int i;
+    poly *p;  
+    p=(poly*)malloc(sizeof(poly));
+    printf("enter the highpower of the polynomial\n");
+    scanf("%d",&p->highpower);        
+    for(i=p->highpower;i>=0;i--)
+    {                            
+        printf("enter coefficient of %d component\n",i);
+        scanf("%d",&p->coeff[i]);            
+    }                            
+    return p;      
+}              
+void display(poly *p)  
+{
+    int i;
+    for(i=p->highpower;i>=0;i--)
+    {
+        printf("%dX^%d+",p->coeff[i],i);
+    }
+}
+int max(int a,int b)
+{
+    return (a>b?a:b);
+}
+poly* add(poly *p1,poly *p2)
+{
+    poly *p3;
+    int i;            
+    p3->highpower=max(p1->highpower,p2->highpower);
+    for(i=p3->highpower;i>=0;i--)                
+    {                                            
+        p3->coeff[i]=p1->coeff[i]+p2->coeff[i];  
+    }                                        
+    return p3;                                
+}
+poly* sub(poly *p1,poly *p2)              
+{                                        
+    poly *p3;
+    int i;            
+    p3->highpower=max(p1->highpower,p2->highpower);
+    for(i=p3->highpower;i>=0;i--)                
+    {                                            
+        p3->coeff[i]=p1->coeff[i]-p2->coeff[i];  
+    }                                        
+    return p3;                                
+}  
+poly* mul(poly *p1,poly *p2)
+{                              
+    poly *p3;
+    int i,j;  
+    p3=(poly*)malloc(sizeof(poly));
+    p3->highpower=p1->highpower+p2->highpower;    
+    for(i=p1->highpower;i>=0;i--)                  
+        for(j=p2->highpower;j>=0;j--)                  
+            p3->coeff[i+j]+=p1->coeff[i]*p2->coeff[j];      
+    return p3;                                                
+}                                                          
+int main()                                                
+{                                                          
+    poly *p1,*p2,*p3;                                      
+    int ch;                                                
+    printf("enter the first polynomial\n");                
+    p1=create();                                          
+    display(p1);                                          
+    printf("enter the second polynomial\n");              
+    p2=create();                                          
+    display(p2);                                          
+    while(1)                                              
+    {                                                      
+        printf("\n1.addition\n 2.substraction\n 3.multiplication\n 4.exit\n");
+        printf("enter your choice\n");                                        
+        scanf("%d",&ch);                                                      
+        switch(ch)                                                            
+        {                                                                      
+            case 1: p3=add(p1,p2);                                              
+                    printf("the addition of p1 and p2 is");                            
+                    display(p3);                                                      
+                    break;                                                            
+            case 2: p3=sub(p1,p2);                                              
+                    printf("the substraction of p1 and p2 is");                        
+                    display(p3);                                                      
+                    break;                                                                                        
+            case 3: p3=mul(p1,p2);          
+                    printf("the multiplication of p1 and p2 is");    
+                    display(p3);                                    
+                    break;                                          
+            case 4: exit(0);                                  
+                    break;                                          
+            default:printf("invalid input");                
+        }                                                
+    }                                                
+}
