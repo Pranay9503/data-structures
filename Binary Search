@@ -1,0 +1,66 @@
+#include<stdio.h>
+void insertionsort(int a[20],int n)
+{
+    int p,j,temp;
+    for(p=1;p<n;p++)
+    {
+        temp=a[p];
+        j=p;
+        while(j>0&&temp<a[j-1])
+        {
+            a[j]=a[j-1];
+            j--;
+        }
+        a[j]=temp;
+    }
+    for(j=0;j<n;j++)
+    {
+        printf("%d\t",a[j]);
+    }
+}
+void binarysearch(int a[20],int n,int x)
+{
+    int i,flag=0,low=0,high=n-1,mid;
+    mid=low+high/2;
+    for(i=0;i<n;i++)
+    {
+        if(x==a[mid])
+        {
+           flag=1;
+           break;
+        }
+        else if(x>a[mid])
+        {
+           low=mid+1;
+           high=n-1;
+        }
+        else
+        {
+           low=0;
+           high=mid-1;
+        }
+    }
+    if(flag==1)
+    {
+        printf("%d element is found in array",x);
+    }
+    else
+    {
+        printf("%d element is not found in array",x);
+    }
+}
+void main()
+{
+    int a[20],n,ele,i;
+    printf("enter the no. of elements\n");
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    insertionsort(a,n);
+    printf("enter the element to be searched");
+    scanf("%d",&ele);
+    binarysearch(a,n,ele);
+}
+
