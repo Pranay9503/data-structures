@@ -29,7 +29,7 @@ node* addterm(node *first,node *new)
         }
         if(temp==NULL)
         {
-            temp=new;
+            temp1->next=new;
         }
         else if(temp->exp==new->exp)
         {
@@ -55,7 +55,7 @@ node* create(node *first)
         scanf("%d%d",&new->coeff,&new->exp);
         first=addterm(first,new);
         printf("enter another term(enter 'n' to stop)");
-        scanf("%c",&c);
+        scanf(" %c",&c);
     }while(c!='n');
     return first;
 }
