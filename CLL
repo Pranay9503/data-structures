@@ -1,0 +1,312 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct CLL
+{
+        int data;
+        struct CLL *next;
+};
+typedef struct CLL node;
+node* create(node *first)
+{
+        node *new,*prev;
+        int x;
+        printf("enter the value of x");
+        scanf("%d",&x);
+        while(x!=-1)
+        {
+                new=(node*)malloc(sizeof(node));
+                new->data=x;
+                new->next=NULL;
+                if(first==NULL)
+                {
+                        first=new;
+                        prev=new;
+                }
+                else
+                {
+                        prev->next=new;
+                        prev=new;
+                }
+                printf("enter the value of x(enter -1 to stop)");
+                scanf("%d",&x);
+        }
+        prev->next=first;
+        return first;
+}
+void display(node *first)
+{
+        node *temp;
+        if(first==NULL)
+        {
+
+                printf("no elements in list to print");
+        }
+        else
+
+                temp=first;
+                do
+                {
+                        printf("|%d|->",temp->data);
+                        temp=temp->next;
+                }while(temp!=first);
+                printf("|%d|->",temp->data);
+
+}
+int count(node *first)
+{
+        node *temp;
+        int c=0;
+        if(first==NULL)
+        {
+                return c;
+        }
+        else
+        {
+                temp=first;
+                do
+                {
+                        c++;
+                        temp=temp->next;
+                }while(temp!=first);
+                return c;
+        }
+}
+void search(node *first,int x)
+{
+        node *temp=first;
+        int flag=0;
+        if(first==NULL)
+        {
+                printf("no element to search");
+        }
+        else
+        {
+                do
+                {
+                        if(first->data==x)
+                        {
+                                flag=1;
+                                break;
+                        }
+                        else
+                        {
+                                temp=temp->next;
+                        }
+                }while(temp!=first);
+        }
+        if(flag=1)
+        {
+                printf("%d element found",x);
+        }
+        else
+        {
+                printf("%d element not found",x);
+        }
+}
+node* insert_at_begin(node *first,int x)
+{
+        node *temp=first;
+        node *new=(node*)malloc(sizeof(node));
+        new->data=x;
+        new->next=NULL;
+        if(first==NULL)
+        {
+                first=new;
+                new->next=first;
+        }
+        else
+        {
+                do
+                {
+                        temp=temp->next;
+                }while(temp->next!=first);
+                new->next=first;
+                temp->next=new;
+                first=new;
+        }
+        return first;
+}
+node* insert_at_end(node *first,int x)
+{
+        node *temp=first;
+        node *new=(node*)malloc(sizeof(node));
+        new->data=x;
+        new->next=NULL;
+        if(first==NULL)
+        {
+                first=new;
+                new->next=first;
+        }
+        else
+        {
+                do
+                {
+                        temp=temp->next;
+                }while(temp->next!=first);
+                temp->next=new;
+               new->next=first;
+        }
+}
+node* insert_at_pos(node *first,int x,int pos)
+{
+        node *temp,*new;
+        int n=count(first),i;
+        if(pos>1 && pos<n)
+        {
+                new=(node*)malloc(sizeof(node));
+                new->data=x;
+                new->next=NULL;
+                for(i=0;i<pos-1;i++)
+                {
+                        temp=temp->next;
+                }
+                new->next=temp->next;
+                temp->next=new;
+        }
+        return first;
+}
+node* delete(node *first,int x)
+{
+    node *temp1,*temp;
+    int flag=0;
+    if(first==NULL)
+    {
+        printf("no element to delete");
+    }
+    else if(first->data==x)
+    {
+        temp1=first;
+        temp=first;
+        while(temp->next!=first)
+            temp=temp->next;
+        first=first->next;
+        temp->next=first;
+        free(temp1);
+    }
+    else
+    {
+        temp1=first;
+        temp=first->next;
+        while(temp!=first)
+        {
+            if(temp->data==x)
+            {
+                flag=1;
+                break;
+            }
+            else
+            {
+                temp1=temp;
+                temp=temp->next;
+            }
+        }
+    }
+    if(flag==1)
+    {
+        temp1->next=temp->next;
+        free(temp);
+    }
+    else
+    {
+        printf("%d element not found",x);
+    }
+    return first;
+}
+node* sort(node *first)
+{
+    node *temp=first,*temp1=NULL;
+    int x;
+    if(first==NULL)
+    {
+        printf("no element to sort");
+    }
+    else
+    {
+        do
+        {
+            temp1=temp->next;
+            while(temp1!=first)
+            {
+                if(temp->data > temp1->data)
+                {
+                    x=temp->data;
+                    temp->data=temp1->data;
+                    temp1->data=x;
+                }
+                temp1=temp1->next;
+            }
+            temp=temp->next;
+        }while(temp!=first);
+    }
+    return first;
+}
+node* reverse(node *first)
+{
+    node *temp=first;
+    node *prev=first;
+    node *current=first;
+    current=current->next;
+    temp=temp->next->next;
+    while(current!=first)
+    {
+        current->next=prev;
+        prev=current;
+        current=temp;
+        temp=temp->next;
+    }
+    first=prev;
+    current->next=first;
+    return first;
+}
+int main()
+{
+    int ch,x,n,pos;
+    node *head=NULL;
+    head=create(head);
+    display(head);
+    while(1)
+    {
+        printf("1:create\n 2:display\n 3:count\n 4:search\n 5:insert_at_begin\n 6:insert_at_end\n 7:insert_at_pos\n 8:delete\n 9:sort\n 10:reverse\n 11:exit");
+        printf("\nenter your choice\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1: head=create(head);
+                    break;
+            case 2: display(head);
+                    break;
+            case 3: n=count(head);
+                    printf("the no. of nodes in the list are %d",n);
+                    break;
+            case 4: printf("enter the element to be searched");
+                    scanf("%d",&x);
+                    search(head,x);
+                    break;
+            case 5: printf("enter the element to be inserted");
+                    scanf("%d",&x);
+                    head=insert_at_begin(head,x);
+                    break;
+            case 6: printf("enter the element to be inserted");
+                    scanf("%d",&x);
+                    head=insert_at_end(head,x);
+                    break;
+            case 7: printf("enter the element to be inserted");
+                    scanf("%d",&x);
+                    printf("enter the position where to be inserted");
+                    scanf("%d",&pos);
+                    head=insert_at_pos(head,x,pos);
+                    break;
+            case 8: printf("enter the value to be deleted");
+                    scanf("%d",&x);
+                    head=delete(head,x);
+                    break;
+            case 9: head=sort(head);
+                    break;
+            case 10:head=reverse(head);
+                    break;
+            case 11:exit(0);
+            default:printf("invalid input");
+        }
+    }
+    return 0;
+}
