@@ -164,6 +164,7 @@ node* delete(node *first,int x)
     }
     else
     {
+        temp=first;
         while(temp!=NULL)
         {
             if(temp->data==x)
