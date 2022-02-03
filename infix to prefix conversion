@@ -1,5 +1,6 @@
 #define MAX 20
 #include<stdio.h>
+#include<ctype.h>
 char postfix[MAX],a[MAX];
 int j=0,top=-1;
 int priority(char ch)
