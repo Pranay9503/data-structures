@@ -1,0 +1,39 @@
+#define MAX 50
+#include<stdio.h>
+char a[MAX];
+int top=-1;
+void push(char x){
+    a[++top]=x;
+}
+int pop(){
+    return a[top--];
+}
+int main(){
+    char exp[MAX],c,x;
+    int flag=1,i=0;
+    printf("Enter the Expression:\n\t");
+    scanf("%s",exp);
+    while(exp[i]!='\0'){
+        c=exp[i];
+        if(c=='('||c=='{'||c=='[')  push(c);
+        else if(c==')'||c=='}'||c==']'){
+            if(top==-1){
+                flag=0;
+                break;
+            }
+            else{
+                x=pop();
+                if(x=='('&&c==')' || x=='['&&c==']' || x=='{'&&c=='}') flag=1;
+                else{
+                    flag=0;
+                    break;
+                }
+            }
+        }
+        i++;
+    }
+    if(top!=-1)  flag=0;
+    if(flag)  printf("\nNo Delimiter Problems Detected\n");
+    else      printf("\nError Occured!Check The Delimiters in Expression\n");
+    return 0;
+}
