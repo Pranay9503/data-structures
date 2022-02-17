@@ -80,7 +80,7 @@ int main()
                     else
                         printf("element deleted is %d\n",x);
                     break;
-            case 3: printf("the elements in the stack are\n");
+            case 3: printf("the elements in the queue are\n");
                     display();
                     break;
             case 4: exit(0);
