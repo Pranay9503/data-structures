@@ -57,7 +57,7 @@ int main()
                     break;
             case 2: x=dequeue();
                     if(x==-1)
-                        printf("stack underflow\n");
+                        printf("queue underflow\n");
                     else
                         printf("element deleted is %d\n",x);
                     break;
